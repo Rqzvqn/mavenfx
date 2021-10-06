@@ -1,6 +1,8 @@
 package nl.inholland.javafx;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,47 +11,64 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
-
+    TextField numerator, divider, outcome;
+    Button calculate, reset;
+    Label divisionSymbol = new Label ("/");
+    Label equalSymbol = new Label ("=");
+    Label errorLabel = new Label();
     @Override
     public void start(Stage window) throws Exception {
-        window.setHeight(200);
-        window.setWidth(250);
-        window.setTitle("Login");
+        window.setHeight(150);
+        window.setWidth(800);
+        window.setTitle("Calculator");
 
-        GridPane gridPane = new GridPane();
+        VBox container = new VBox(10);
+        container.setPadding(new Insets(10));
+        HBox box = new HBox();
+        box.setPadding (new Insets ( 10));
+        box.setSpacing(10);
 
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        gridPane.setVgap(10); // Vertical spacing between grid items
-        gridPane.setHgap(8); // Horizontal spacing between grid items
+        numerator = new TextField();
+        divider = new TextField();
+        outcome = new TextField();
 
-        Label userLabel = new Label ("Username:");
-        GridPane.setConstraints(userLabel, 0, 0); // first column, first row
+        calculate = new Button ("Calculate");
+        reset = new Button ("Reset");
 
-        TextField userInput = new TextField();
-        System.out.println(userInput.getText());
-        userInput.setPromptText("username");
 
-        Label passwordLabel = new Label("Password:");
-        PasswordField pwField = new PasswordField();
-        pwField.setPromptText("Enter password");
+        calculate.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    int num = Integer.parseInt(numerator.getText());
+                    int div = Integer.parseInt(divider.getText());
+                    outcome.setText(String.valueOf(num/div));
+                } catch (NumberFormatException e) {
+                    System.out.println("This exception happened: " + e.getClass().getCanonicalName());
+                    errorLabel.setText("Your input was not a number");
+                }
+            }
+        });
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                numerator.clear();
+                divider.clear();
+                outcome.clear();
+                errorLabel.setText("");
+            }
+        });
 
-        String password = pwField.getText();
+        box.getChildren().addAll(numerator,divisionSymbol,divider,equalSymbol,outcome,calculate,reset);
+        container.getChildren().add(box);
 
-        Button loginButton = new Button("Log in");
-
-        GridPane.setConstraints(userLabel, 0, 0);
-        GridPane.setConstraints(userInput, 1, 0);
-        GridPane.setConstraints(passwordLabel, 0, 1);
-        GridPane.setConstraints(pwField, 1, 1);
-        GridPane.setConstraints(loginButton, 1, 2); // Right align in the grid
-
-        gridPane.getChildren().addAll(userLabel, userInput, passwordLabel, pwField, loginButton);
-
-        Scene scene = new Scene(gridPane);
+        Scene scene = new Scene(container);
         window.setScene(scene);
         window.show();
     }
