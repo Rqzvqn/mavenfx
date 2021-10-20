@@ -15,9 +15,11 @@ public class LoginWindow {
 
     public LoginWindow(DB db) {
         this.db = db;
+        Stage loginWindow = new Stage();
+        start(loginWindow);
     }
 
-    public void start(Stage window) throws Exception {
+    private void start(Stage window){
         window.setHeight(200);
         window.setWidth(250);
         window.setTitle("Login");
