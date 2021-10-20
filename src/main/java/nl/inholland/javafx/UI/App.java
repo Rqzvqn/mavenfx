@@ -11,7 +11,7 @@ public class App extends Application {
     @Override
     public void start (Stage window) {
         DB db = new DB();
-        LoginWindow loginWindow = new LoginWindow();
+        LoginWindow loginWindow = new LoginWindow(db);
         window.close();
     }
 }

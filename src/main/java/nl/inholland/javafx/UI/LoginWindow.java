@@ -13,6 +13,10 @@ import nl.inholland.javafx.DataBase.DB;
 public class LoginWindow {
     private DB db;
 
+    public LoginWindow(DB db) {
+        this.db = db;
+    }
+
     public void start(Stage window) throws Exception {
         window.setHeight(200);
         window.setWidth(250);
