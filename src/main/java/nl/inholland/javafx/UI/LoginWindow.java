@@ -1,20 +1,18 @@
-package nl.inholland.javafx;
+package nl.inholland.javafx.UI;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import nl.inholland.javafx.DataBase.DB;
 
-public class App extends Application {
+public class LoginWindow {
+    private DB db;
 
-
-    @Override
     public void start(Stage window) throws Exception {
         window.setHeight(200);
         window.setWidth(250);
@@ -53,4 +51,6 @@ public class App extends Application {
         window.setScene(scene);
         window.show();
     }
+
 }
+
