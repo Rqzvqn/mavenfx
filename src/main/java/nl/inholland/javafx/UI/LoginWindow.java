@@ -1,5 +1,8 @@
 package nl.inholland.javafx.UI;
 
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,10 +22,21 @@ public class LoginWindow {
         start(loginWindow);
     }
 
-    private void start(Stage window){
-        window.setHeight(200);
-        window.setWidth(250);
-        window.setTitle("Login");
+    private void start(Stage loginWindow) {
+        loginWindow.setHeight(180);
+        loginWindow.setWidth(280);
+        loginWindow.setTitle("Fabulous Cinema--Login");
+
+        Label lblUsername = new Label("Username");
+        TextField txtUsername = new TextField();
+        Label lblPassword = new Label("Password");
+        PasswordField thePassword = new PasswordField();
+        Button btnLogin = new Button("Log in");
+        Label lblErrorMessage = new Label();
+
+        txtUsername.setPromptText("Enter username");
+        thePassword.setPromptText("Enter password");
+        lblErrorMessage.setVisible(false);
 
         GridPane gridPane = new GridPane();
 
@@ -30,33 +44,75 @@ public class LoginWindow {
         gridPane.setVgap(10); // Vertical spacing between grid items
         gridPane.setHgap(8); // Horizontal spacing between grid items
 
-        Label userLabel = new Label ("Username:");
-        GridPane.setConstraints(userLabel, 0, 0); // first column, first row
-
-        TextField userInput = new TextField();
-        System.out.println(userInput.getText());
-        userInput.setPromptText("username");
-
-        Label passwordLabel = new Label("Password:");
-        PasswordField pwField = new PasswordField();
-        pwField.setPromptText("Enter password");
-
-        String password = pwField.getText();
-
         Button loginButton = new Button("Log in");
 
-        GridPane.setConstraints(userLabel, 0, 0);
-        GridPane.setConstraints(userInput, 1, 0);
-        GridPane.setConstraints(passwordLabel, 0, 1);
-        GridPane.setConstraints(pwField, 1, 1);
-        GridPane.setConstraints(loginButton, 1, 2); // Right align in the grid
+        Label errorLabel = new Label();
+        GridPane.setConstraints(errorLabel,1,2);
 
-        gridPane.getChildren().addAll(userLabel, userInput, passwordLabel, pwField, loginButton);
+        //create a StringProperty
+        StringProperty passwordProperty = thePassword.textProperty();
+        loginButton.setVisible(false);
+        //add the listener to this property
+        passwordProperty.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue,
+                                String oldValue, String newValue)
+            {
+
+                String error = lblErrorMessage.getText();
+                String password = thePassword.getText();
+
+
+                boolean validChars = password.matches(".*[a-zA-Z]+.*");
+                boolean validNums = password.matches(".*[0-9]+.*");
+                boolean validSymbol = password.matches(".*[!@#$%^&*()-+]");
+                loginButton.setVisible(false);
+                if(password.length() <= 8)
+                {
+                    error = "Please enter more than 8 characters";
+                    errorLabel.setText(error);
+                }
+                else if(validChars == false && validNums && validSymbol)
+                {
+                    error = "You are missing a lower or an upper case letter";
+                    errorLabel.setText(error);
+                }
+                else if (validSymbol == false && validChars && validNums)
+                {
+                    error = "You are missing a special character";
+                    errorLabel.setText(error);
+                }
+                else if(validNums == false && validChars && validSymbol)
+                {
+                    error = "Your password must require at least a number character";
+                    errorLabel.setText(error);
+                }
+                else if (validChars && validNums && validSymbol && password.length() >= 8)
+                {
+                    error = "";
+                    errorLabel.setText(error);
+                    loginButton.setVisible(true);
+                }
+
+            }
+        });
+
+        //button to next window
+
+        GridPane.setConstraints(lblUsername, 0, 0);
+        GridPane.setConstraints(txtUsername, 1, 0);
+        GridPane.setConstraints(lblPassword, 0, 1);
+        GridPane.setConstraints(thePassword, 1, 1);
+        GridPane.setConstraints(btnLogin, 0, 2);
+        GridPane.setConstraints(lblErrorMessage, 0, 3, 1, 3);
+
+        gridPane.getChildren().addAll(lblUsername, txtUsername, lblPassword, thePassword, btnLogin, lblErrorMessage);
 
         Scene scene = new Scene(gridPane);
-        window.setScene(scene);
-        window.show();
+        loginWindow.setScene(scene);
+        loginWindow.show();
     }
 
 }
+
 
