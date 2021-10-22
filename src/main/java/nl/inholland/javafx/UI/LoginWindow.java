@@ -31,7 +31,7 @@ public class LoginWindow {
         TextField txtUsername = new TextField();
         Label lblPassword = new Label("Password");
         PasswordField thePassword = new PasswordField();
-        Button btnLogin = new Button("Log in");
+        Button loginButton = new Button("Log in");
         Label lblErrorMessage = new Label();
 
         txtUsername.setPromptText("Enter username");
@@ -44,7 +44,6 @@ public class LoginWindow {
         gridPane.setVgap(10); // Vertical spacing between grid items
         gridPane.setHgap(8); // Horizontal spacing between grid items
 
-        Button loginButton = new Button("Log in");
 
         Label errorLabel = new Label();
         GridPane.setConstraints(errorLabel,1,2);
@@ -103,10 +102,10 @@ public class LoginWindow {
         GridPane.setConstraints(txtUsername, 1, 0);
         GridPane.setConstraints(lblPassword, 0, 1);
         GridPane.setConstraints(thePassword, 1, 1);
-        GridPane.setConstraints(btnLogin, 0, 2);
+        GridPane.setConstraints(loginButton, 0, 2);
         GridPane.setConstraints(lblErrorMessage, 0, 3, 1, 3);
 
-        gridPane.getChildren().addAll(lblUsername, txtUsername, lblPassword, thePassword, btnLogin, lblErrorMessage);
+        gridPane.getChildren().addAll(lblUsername, txtUsername, lblPassword, thePassword, loginButton, lblErrorMessage);
 
         Scene scene = new Scene(gridPane);
         loginWindow.setScene(scene);
