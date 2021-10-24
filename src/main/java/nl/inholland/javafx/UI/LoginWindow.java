@@ -3,15 +3,17 @@ package nl.inholland.javafx.UI;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import nl.inholland.javafx.DataBase.DB;
+
+import java.awt.event.KeyEvent;
 
 public class LoginWindow {
     private DB db;
@@ -48,10 +50,10 @@ public class LoginWindow {
         Label errorLabel = new Label();
         GridPane.setConstraints(errorLabel,1,2);
 
-        //create a StringProperty
+        //StringProperty
         StringProperty passwordProperty = thePassword.textProperty();
         loginButton.setVisible(false);
-        //add the listener to this property
+        //add listener to property
         passwordProperty.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue,
@@ -96,9 +98,69 @@ public class LoginWindow {
             }
         });
 
-        //button to next window
+        public void actionPerformed(ActionEvent ae) {
+            String userName = userName_text.getText();
+            String password = password_text.getText();
+            if (userName.trim().equals("admin") && password.trim().equals("admin")) {
+                message.setText(" Hello " + userName + "");
+            } else {
+                message.setText(" Invalid user.. ");
+            }
+        }
 
-        GridPane.setConstraints(lblUsername, 0, 0);
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                        if (txtUsername.getText().equals(user.getUsername())) {
+                            if (thePassword.getText().equals(user.getPassword())) {
+                                MainWindow mainWindow = new MainWindow(DB, user);
+                                loginWindow.close();
+                                return;
+                            } else {
+                                thePassword.clear();
+                                thePassword.requestFocus();
+                                throw new Exception("Incorrect password");
+                                {
+                                    lblErrorMessage.setVisible(true);
+                                    lblErrorMessage.setText(rte.getMessage());
+                                }
+                            }
+                        }
+                    }
+
+            }
+        };
+
+        //blah
+         class Controller {
+             PasswordField pass;
+             TextField name;
+             javafx.scene.control.Button login;
+             Hyperlink signup;
+             Label errormessage;
+
+             private void buttonPressed() {
+                checkUser();
+            }
+            //this is for "ENTER" not fixed"
+             //private void ifEnterIsPressed(KeyEvent k) {
+                //if (k.getCode() == KeyCode.ENTER)
+                   // checkUser();
+            }
+
+             private void checkUser() {
+                System.out.println(name.getCharacters());
+                System.out.println(pass.getCharacters());
+                if (name.getCharacters().equals("Marios") && pass.getCharacters().equals("19981998")) {
+                    errormessage.setVisible(false);
+                    System.out.println("Access granted!");
+                }
+                else {
+                    errormessage.setText("Wrong username or password");
+                    System.out.println("Access denied");
+                }
+            }
+            GridPane.setConstraints(lblUsername, 0, 0);
         GridPane.setConstraints(txtUsername, 1, 0);
         GridPane.setConstraints(lblPassword, 0, 1);
         GridPane.setConstraints(thePassword, 1, 1);
@@ -107,11 +169,9 @@ public class LoginWindow {
 
         gridPane.getChildren().addAll(lblUsername, txtUsername, lblPassword, thePassword, loginButton, lblErrorMessage);
 
-        Scene scene = new Scene(gridPane);
-        loginWindow.setScene(scene);
-        loginWindow.show();
-    }
-
+    Scene scene = new Scene(gridPane);
+        LoginWindow.setScene(scene);
+        LoginWindow.show();
 }
 
 
