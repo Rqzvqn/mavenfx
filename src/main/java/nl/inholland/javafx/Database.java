@@ -18,12 +18,12 @@ public class Database {
         movies.add(m);
     }
 
-    public List<Showing> getShowings() {
-        return showings;
-    }
-
     public void addShowing(Showing s) {
         showings.add(s);
+    }
+
+    public List<Showing> getShowings() {
+        return showings;
     }
 
     private List<User> users;

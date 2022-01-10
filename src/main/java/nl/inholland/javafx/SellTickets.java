@@ -53,8 +53,6 @@ public class SellTickets extends Window {
         stage.show();
 
         room1Showings.setOnMouseClicked(mouseEvent -> {
-            //These methods fill the sellTickets form with the information from
-            //the selected showing
             if (!sellTickets.isVisible()) {
                 sellTickets.setVisible(true);
             }

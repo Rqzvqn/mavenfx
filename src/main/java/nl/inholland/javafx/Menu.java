@@ -13,7 +13,7 @@ public class Menu extends HBox {
     }
 
     private void CreateMenu(Stage stage, Database db, User user) {
-        //Create admin menu
+        //for admin
         this.setPadding(new Insets(10));
         this.setSpacing(5);
         MenuItem option1 = new MenuItem("Manage showings");
