@@ -11,46 +11,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class App extends Application {
-
-
     @Override
-    public void start(Stage window) throws Exception {
-        window.setHeight(200);
-        window.setWidth(250);
-        window.setTitle("Login");
+    public void start(Stage stage) throws IOException {
+        Database db = new Database();
 
-        GridPane gridPane = new GridPane();
+        Login login = new Login(stage, db);
+    }
 
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        gridPane.setVgap(10); // Vertical spacing between grid items
-        gridPane.setHgap(8); // Horizontal spacing between grid items
-
-        Label userLabel = new Label ("Username:");
-        GridPane.setConstraints(userLabel, 0, 0); // first column, first row
-
-        TextField userInput = new TextField();
-        System.out.println(userInput.getText());
-        userInput.setPromptText("username");
-
-        Label passwordLabel = new Label("Password:");
-        PasswordField pwField = new PasswordField();
-        pwField.setPromptText("Enter password");
-
-        String password = pwField.getText();
-
-        Button loginButton = new Button("Log in");
-
-        GridPane.setConstraints(userLabel, 0, 0);
-        GridPane.setConstraints(userInput, 1, 0);
-        GridPane.setConstraints(passwordLabel, 0, 1);
-        GridPane.setConstraints(pwField, 1, 1);
-        GridPane.setConstraints(loginButton, 1, 2); // Right align in the grid
-
-        gridPane.getChildren().addAll(userLabel, userInput, passwordLabel, pwField, loginButton);
-
-        Scene scene = new Scene(gridPane);
-        window.setScene(scene);
-        window.show();
+    public static void main(String[] args) {
+        launch();
     }
 }
