@@ -15,11 +15,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Login extends VBox {
+    int loginAttempts = 0;
     public Login(Stage stage, Database db) {
         createLogin(stage, db);
     }
@@ -63,6 +65,7 @@ public class Login extends VBox {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+
                 for (User u :
                         users) {
                     if (u.getUserName().equals(usernameInput.getText()) && u.getPassword().equals(passwordInput.getText())) {
@@ -70,7 +73,9 @@ public class Login extends VBox {
                         SellTickets mainWindow = new SellTickets(new Stage(), db, u);
                     } else {
                         errorMessage.setText("Incorrect username or password");
+
                     }
+
                 }
             }
         });
@@ -82,9 +87,12 @@ public class Login extends VBox {
                 if (!isValidPassword(passwordInput.getText())) {
                     errorMessage.setText("A valid password has 8 characters, a number and " +
                             "a special character");
+                    loginAttempts++;
                 } else {
                     errorMessage.setText("");
                 }
+                    if(loginAttempts > 3)
+                        errorMessage.setText("Account Blocked");
             }
         });
     }

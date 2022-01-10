@@ -17,6 +17,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ManageMovies extends VBox {
+
+
+    public boolean ageRestriction;
+
     public ManageMovies(Stage stage, Database db, User user) {
         createManageMovies(stage, db, user);
     }
@@ -65,7 +69,7 @@ public class ManageMovies extends VBox {
                     double price = Double.parseDouble(moviePriceInput.getText());
                     Duration duration = Duration.of(Long.parseLong(movieDurationInput.getText()), ChronoUnit.MINUTES);
 
-                    Movie newMovie = new Movie(title, price, duration);
+                    Movie newMovie = new Movie(title, price, duration, ageRestriction);
                     db.addMovie(newMovie);
 
                     movieList.refresh();

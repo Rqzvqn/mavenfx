@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,8 @@ public class SellTickets extends Window {
     }
 
     private void createSellTickets(Stage stage, Database db, User user) {
+        CheckBox checkBox1 = new CheckBox("Check for age restriction");
+        HBox hbox = new HBox(checkBox1);
         GridPane sellTickets = new GridPane();
         sellTickets.setPadding(new Insets(10));
         sellTickets.setHgap(30);
@@ -129,6 +132,7 @@ public class SellTickets extends Window {
             db.upDateShowings(showing, index);
         } catch (Exception e) {
             errBox.setDisplayErrorMessage("Please choose an amount of seats");
+        }
         }
     }
 }

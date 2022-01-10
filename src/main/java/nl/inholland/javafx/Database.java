@@ -41,15 +41,24 @@ public class Database {
         showings = new ArrayList<>();
         movies = new ArrayList<>();
         users = new ArrayList<>();
-        movies.add(new Movie("No time to lie", 12.00, Duration.of(125, ChronoUnit.MINUTES)));
-        movies.add(new Movie("The Addams Family 19", 9.00, Duration.of(92, ChronoUnit.MINUTES)));
-        showings.add(new Showing("No time to lie", LocalDateTime.of(2021, 10, 9, 20, 0), Duration.of(125, ChronoUnit.MINUTES), 200, 12.00, 1));
-        showings.add(new Showing("The Addams Family 19", LocalDateTime.of(2021, 10, 9, 22, 30), Duration.of(92, ChronoUnit.MINUTES), 200, 9.00, 1));
-        showings.add(new Showing("No time to lie", LocalDateTime.of(2021, 10, 9, 22, 30), Duration.of(125, ChronoUnit.MINUTES), 200, 12.00, 2));
-        showings.add(new Showing("The Addams Family 19", LocalDateTime.of(2021, 10, 9, 23, 50), Duration.of(92, ChronoUnit.MINUTES), 200, 9.00, 2));
+        movies.add(new Movie("No time to lie", 12.00, Duration.of(125, ChronoUnit.MINUTES), ageRestriction(true)));
+        movies.add(new Movie("The Addams Family 19", 9.00, Duration.of(92, ChronoUnit.MINUTES), ageRestriction(false)));
+        movies.add(new Movie("Additional movie", 13.25, Duration.of(996, ChronoUnit.MINUTES), ageRestriction(false)));
+        showings.add(new Showing("No time to lie", LocalDateTime.of(2022, 1, 10, 20, 0), Duration.of(125, ChronoUnit.MINUTES), 200, 12.00, 1));
+        showings.add(new Showing("The Addams Family 19", LocalDateTime.of(2021, 1, 10, 22, 30), Duration.of(92, ChronoUnit.MINUTES), 200, 9.00, 1));
+        showings.add(new Showing("Additional movie", LocalDateTime.of(2022, 1, 11, 22, 30), Duration.of(125, ChronoUnit.MINUTES), 200, 13.25, 1));
+        showings.add(new Showing("No time to lie", LocalDateTime.of(2022, 1, 9, 22, 30), Duration.of(125, ChronoUnit.MINUTES), 200, 12.00, 2));
+        showings.add(new Showing("The Addams Family 19", LocalDateTime.of(2022, 1, 11, 23, 50), Duration.of(92, ChronoUnit.MINUTES), 200, 9.00, 2));
+        showings.add(new Showing("Additional movie", LocalDateTime.of(2022, 1, 11, 23, 50), Duration.of(92, ChronoUnit.MINUTES), 200, 13.25, 2));
         users.add(new User("Razvan", "P@ssword123"));
         users.add(new Admin("Chad", "P@ssword234"));
+        users.add(new User("1", "2"));
     }
+
+    private boolean ageRestriction(boolean b) {
+        return true;
+    }
+
 
     public void upDateShowings(Showing s, int index) {
         showings.set(index, s);

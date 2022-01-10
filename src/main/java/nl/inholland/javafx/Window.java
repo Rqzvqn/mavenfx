@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class Window extends VBox {
     protected List<Movie> movies;
@@ -33,6 +36,7 @@ public class Window extends VBox {
         Menu menu = new Menu(stage, db, user);
         this.setPadding(new Insets(10));
 
+        ToggleButton button1 = new ToggleButton("Display only today");
         Label purchase = new Label("Purchase tickets");
         GridPane tableContainer = new GridPane();
         tableContainer.setPadding(new Insets(15));
@@ -76,4 +80,6 @@ public class Window extends VBox {
 
         return table;
     }
+    //blah
+
 }

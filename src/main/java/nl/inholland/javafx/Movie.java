@@ -3,6 +3,18 @@ package nl.inholland.javafx;
 import java.time.Duration;
 
 public class Movie<Private> {
+    boolean ageRestriction;
+
+    // getter
+    public boolean setAgeRestriction() {
+        return this.ageRestriction;
+    }
+
+    // setter
+    public void setAgeRestriction(boolean ageRestriction) {
+        this.ageRestriction = ageRestriction;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -31,10 +43,11 @@ public class Movie<Private> {
     private double price;
     private Duration duration;
 
-    public Movie(String title, double price, Duration duration) {
+    public Movie(String title, double price, Duration duration, boolean ageRestriction) {
         this.title = title;
         this.price = price;
         this.duration = duration;
+        this.ageRestriction = ageRestriction;
     }
 
     public String toString() {
